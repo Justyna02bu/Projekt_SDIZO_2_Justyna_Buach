@@ -1,0 +1,3 @@
+C:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bułach/cmake-build-release/CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir
+C:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bułach/cmake-build-release/CMakeFiles/edit_cache.dir
+C:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bułach/cmake-build-release/CMakeFiles/rebuild_cache.dir
