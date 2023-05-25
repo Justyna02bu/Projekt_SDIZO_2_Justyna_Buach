@@ -21,8 +21,10 @@ Prim prim;
 Kruskal kruskal;
 Dijkstra dijkstra;
 Bellmanaforda bellmanforda;
-int macierz_s[rozmiarm][rozmiarm] = {0};
-int macierz[rozmiarm][rozmiarm]= {0};
+int ** macierz_s;
+int ** macierz;
+//int macierz_s[rozmiarm][rozmiarm] = {0};
+//int macierz[rozmiarm][rozmiarm]= {0};
 int lista[rozmiarl][3]= {0};
 int lista_s[rozmiarl][3]= {0};
 int liczba_krawedzi;
@@ -37,6 +39,14 @@ struct Krawedz {
 vector<Krawedz> krawedzie; // wektor krawędzi
 
 void utworzmacierz(){
+    macierz = new int * [liczba_wierzcholkow];
+    for (int i = 0; i < liczba_wierzcholkow; i++)
+        macierz[i] = new int [liczba_wierzcholkow];
+
+    macierz_s = new int * [liczba_wierzcholkow];
+    for (int i = 0; i < liczba_wierzcholkow; i++)
+        macierz_s[i] = new int [liczba_wierzcholkow];
+
     for (int j = 0; liczba_wierzcholkow > j; j++) {
         for (int i = 0; liczba_wierzcholkow > i; i++) {
             macierz_s[j][i] = INT_MAX;
@@ -78,7 +88,17 @@ void utworzlista(){
     liczba_krawedzi_s = l_rozmiar;
 }
 
+void usun(){
+    for (int i = 0; i<liczba_wierzcholkow; i++)
+        delete [] macierz[i];
+    delete [] macierz;
+    for (int i = 0; i<liczba_wierzcholkow; i++)
+        delete [] macierz_s[i];
+    delete [] macierz_s;
+}
+
 void wczytaj_plik(){
+    usun();
     int wierzcholek_poczotkowy, wierzcholek_koncowy, waga_krawedzi;
     ifstream plikWejsciowy;
     cout << "Podaj nazwę pliku z końcówką .txt" << endl;
@@ -106,20 +126,20 @@ void wczytaj_plik(){
     utworzlista();
 }
 
-void wczytaj_plik_po(){
+void wczytaj_plik_po(string pointer){
     int wierzcholek_poczotkowy, wierzcholek_koncowy, waga_krawedzi;
     ifstream plikWejsciowy;
-    plikWejsciowy.open(daneWejsciowe);
+    plikWejsciowy.open(pointer, fstream::in);
 
     if (plikWejsciowy.is_open()) {
-        cout << "Otwarto plik " << daneWejsciowe << endl;
+        cout << "Otwarto plik " << pointer << endl;
+
     } else {
         cout << "Nie udało się otworzyć pliku wejściowego" << endl;
         return;
     }
 
     plikWejsciowy >> liczba_krawedzi >> liczba_wierzcholkow >> cwierzcholek_poczotkowy >> cwierzcholek_koncowy;
-
     while(plikWejsciowy.good()){
         plikWejsciowy >> wierzcholek_poczotkowy >> wierzcholek_koncowy >> waga_krawedzi;
         macierz[wierzcholek_poczotkowy][wierzcholek_koncowy] = macierz[wierzcholek_koncowy][wierzcholek_poczotkowy] = waga_krawedzi; /* dodanie krawędzi do macierzy sąsiedztwa */
@@ -128,6 +148,7 @@ void wczytaj_plik_po(){
 
     plikWejsciowy.close();
     plikWejsciowy.clear();
+    cout << "tak";
     utworzmacierz();
     utworzlista();
 }
@@ -163,14 +184,13 @@ void wypiszmacierz(int opcja_poczatkowa) {
 }
 
 void wypiszlista(int opcja_poczatkowa) {
-    int a;
     if (opcja_poczatkowa == 0) {
-        for (int i = 0; liczba_krawedzi > i; i++) {
+        for (int i = 0; liczba_krawedzi_s > i; i++) {
             cout << "[" << lista_s[i][0] << "->" << lista_s[i][1] << "]:" << lista_s[i][2] << endl;
         }
         return;
     } else if (opcja_poczatkowa == 1) {
-        for (int i = 0; liczba_krawedzi * 2 > i; i++) {
+        for (int i = 0; liczba_krawedzi > i; i++) {
             cout << "[" << lista[i][0] << "->" << lista[i][1] << "]:" << lista[i][2] << endl;
         }
         return;
@@ -188,7 +208,7 @@ void testy() {
             _chdir(tab1[j]);
             daneWejsciowe = to_string(i + 1) + ".txt";
             string nazwa = tab1s[j] + ".txt";
-            wczytaj_plik_po();
+            //wczytaj_plik_po();
             chdir("..");
 
             _mkdir(tab2[0]);
@@ -213,12 +233,12 @@ void testy() {
 
             _mkdir(tab2[4]);
             _chdir(tab2[4]);
-            dijkstra.dijkstra_mc(macierz_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, nazwa, liczba_wierzcholkow);
+            dijkstra.dijkstra_mc(macierz_s, cwierzcholek_poczotkowy, nazwa, liczba_wierzcholkow);
             chdir("..");
 
             _mkdir(tab2[5]);
             _chdir(tab2[5]);
-            dijkstra.dijkstra_lc(lista_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, liczba_krawedzi_s, nazwa, liczba_wierzcholkow);
+            dijkstra.dijkstra_lc(lista_s, cwierzcholek_poczotkowy, liczba_krawedzi_s, nazwa, liczba_wierzcholkow);
             chdir("..");
 
             _mkdir(tab2[6]);
@@ -318,7 +338,7 @@ void generuj() {
 
     int main() {
         daneWejsciowe = "tak.txt";
-        wczytaj_plik_po();
+        wczytaj_plik_po(daneWejsciowe);
         SetConsoleOutputCP(CP_UTF8); // Konsola ustawiona na utf-8 aby były Polskie litery
         cout << "Autor: Justyna Bułach" << endl;
         int opcja_poczatkowa;
@@ -372,9 +392,9 @@ void generuj() {
                     break;
                 case 5:
                     cout << "Listowo:" << endl;
-                    dijkstra.dijkstra_l(lista_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, liczba_krawedzi_s, liczba_wierzcholkow);
+                    dijkstra.dijkstra_l(lista_s, cwierzcholek_poczotkowy, liczba_krawedzi_s, liczba_wierzcholkow);
                     cout << "Macierzowo:" << endl;
-                    dijkstra.dijkstra_m(macierz_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, liczba_wierzcholkow);
+                    dijkstra.dijkstra_m(macierz_s, cwierzcholek_poczotkowy, liczba_wierzcholkow);
                     cout << endl;
                     break;
                 case 6:

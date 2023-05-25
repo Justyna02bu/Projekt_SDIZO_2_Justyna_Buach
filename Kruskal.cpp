@@ -11,7 +11,7 @@ using namespace std;
 
 Kruskal::Kruskal() {}
 
-void Kruskal::kruskal_mc(int macierz[100][100], int rozmiar, int wierz, string nazwa){
+void Kruskal::kruskal_mc(int ** macierz, int rozmiar, int wierz, string nazwa){
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "KRUSKAL macierz czas-"+nazwa;
@@ -73,7 +73,7 @@ void Kruskal::kruskal_mc(int macierz[100][100], int rozmiar, int wierz, string n
     plikWyjsciowy.close();
 }
 
-void Kruskal::kruskal_m(int macierz[100][100], int rozmiar, int wierz){
+void Kruskal::kruskal_m(int ** macierz, int rozmiar, int wierz){
     int lista2[100][3] = {0};
     int l_rozmiar = 0;
     int t_rozmiar = 0;

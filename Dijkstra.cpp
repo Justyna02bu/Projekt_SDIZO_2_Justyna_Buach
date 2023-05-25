@@ -10,19 +10,41 @@
 
 using namespace std;
 
-void Dijkstra::dijkstra_m(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int wierz){
-    int lista2[100][3] = {0};
-    int l_rozmiar = 0;
-    int q[100] = {0};
-    int tab[100][2] = {0};
+void Dijkstra::dijkstra_m(int ** macierz, int wierzcholek_poczatkowy, int wierz){
+    int * q = new int [wierz];
+    for (int i = 0; i < wierz; i++) {
+        q[i] = 0;
+    }
 
+    int ** tab = new int * [wierz];
+    for (int i = 0; i < wierz; i++) {
+        tab[i] = new int [2];
+        tab[0] = 0;
+        tab[1] = 0;
+    }
+
+    int l_rozmiar = 0;
     for (int i = 0; i < wierz; i++) {
         for (int j = 0; j < wierz; j++) {
             if (macierz[i][j] != INT_MAX){
-                lista2[l_rozmiar][0] = i;
-                lista2[l_rozmiar][1] = j;
-                lista2[l_rozmiar][2] = macierz[i][j];
                 l_rozmiar++;
+            }
+        }
+    }
+
+    int ** lista2 = new int * [l_rozmiar];
+    for (int i = 0; i < l_rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+
+    int l_rozmiar2 = 0;
+    for (int i = 0; i < wierz; i++) {
+        for (int j = 0; j < wierz; j++) {
+            if (macierz[i][j] != INT_MAX){
+                lista2[l_rozmiar2][0] = i;
+                lista2[l_rozmiar2][1] = j;
+                lista2[l_rozmiar2][2] = macierz[i][j];
+                l_rozmiar2++;
             }
         }
     }
@@ -76,27 +98,60 @@ void Dijkstra::dijkstra_m(int macierz[100][100], int wierzcholek_poczatkowy, int
         }
     }
     cout << endl;
+
+    delete[] q;
+
+    for (int i = 0; i < l_rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < wierz; i++) {
+        delete[] tab[i];
+    }
+    delete[] tab;
 }
 
-void Dijkstra::dijkstra_mc(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, string nazwa, int wierz){
+void Dijkstra::dijkstra_mc(int ** macierz, int wierzcholek_poczatkowy, string nazwa, int wierz){
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "DIJKSTRA Macierz czas-"+nazwa;
     plikWyjsciowy.open(daneWyjsciowe, fstream::app);
-
-    int lista2[100][3] = {0};
     int l_rozmiar = 0;
-    int q[100] = {0};
-    int tab[100][2] = {0};
 
-    czas.Start();
     for (int i = 0; i < wierz; i++) {
         for (int j = 0; j < wierz; j++) {
             if (macierz[i][j] != INT_MAX){
-                lista2[l_rozmiar][0] = i;
-                lista2[l_rozmiar][1] = j;
-                lista2[l_rozmiar][2] = macierz[i][j];
                 l_rozmiar++;
+            }
+        }
+    }
+
+    int ** lista2 = new int * [l_rozmiar];
+    for (int i = 0; i < l_rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+    int * q = new int [wierz];
+    int ** tab = new int * [wierz];
+    for (int i = 0; i < wierz; i++) {
+        tab[i] = new int [2];
+        tab[0] = 0;
+        tab[1] = 0;
+    }
+    //int lista2[100][3] = {0};
+    //int q[100] = {0};
+    //int tab[100][2] = {0};
+
+
+    czas.Start();
+    int l_rozmiar2 = 0;
+    for (int i = 0; i < wierz; i++) {
+        for (int j = 0; j < wierz; j++) {
+            if (macierz[i][j] != INT_MAX){
+                lista2[l_rozmiar2][0] = i;
+                lista2[l_rozmiar2][1] = j;
+                lista2[l_rozmiar2][2] = macierz[i][j];
+                l_rozmiar2++;
             }
         }
     }
@@ -139,9 +194,18 @@ void Dijkstra::dijkstra_mc(int macierz[100][100], int wierzcholek_poczatkowy, in
     plikWyjsciowy << czas.czas_do_pliku() << endl;
     plikWyjsciowy.clear();
     plikWyjsciowy.close();
+    delete[] q;
+    for (int i = 0; i < l_rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+    for (int i = 0; i < wierz; i++) {
+        delete[] tab[i];
+    }
+    delete[] tab;
 }
 
-void Dijkstra::dijkstra_l(int lista[10000][3], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
+void Dijkstra::dijkstra_l(int lista[10000][3], int wierzcholek_poczatkowy, int rozmiar, int wierz) {
     int tab[10000][2] = {0};
     int q[100] = {0};
 
@@ -195,7 +259,7 @@ void Dijkstra::dijkstra_l(int lista[10000][3], int wierzcholek_poczatkowy, int w
     cout << endl;
 }
 
-void Dijkstra::dijkstra_lc(int lista[10000][3], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
+void Dijkstra::dijkstra_lc(int lista[10000][3], int wierzcholek_poczatkowy, int rozmiar, string nazwa, int wierz) {
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "DIJKSTRA Lista czas-"+nazwa;

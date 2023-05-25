@@ -158,7 +158,7 @@ void Bellmanaforda::bell_l(int lista[10000][3], int wierzcholek_poczatkowy, int 
     cout << endl;
 }
 
-void Bellmanaforda::bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
+void Bellmanaforda::bell_mc(int ** macierz, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "BELL Macierz czas-"+nazwa;
@@ -237,7 +237,7 @@ void Bellmanaforda::bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, i
     plikWyjsciowy.close();
 }
 
-void Bellmanaforda::bell_m(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
+void Bellmanaforda::bell_m(int ** macierz, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
     int lista2[10000][3] = {0};
     int l_rozmiar = 0;
     int q[100] = {0};

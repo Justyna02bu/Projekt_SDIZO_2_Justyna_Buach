@@ -11,7 +11,7 @@ using namespace std;
 
 Prim::Prim() {}
 
-void Prim::prim_mc(int macierz[100][100], int rozmiar, int wierz, string nazwa, int start){
+void Prim::prim_mc(int ** macierz, int rozmiar, int wierz, string nazwa, int start){
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "PRIM macierz czas-"+nazwa;
@@ -74,7 +74,7 @@ void Prim::prim_mc(int macierz[100][100], int rozmiar, int wierz, string nazwa, 
     plikWyjsciowy.close();
 }
 
-void Prim::prim_m(int macierz[100][100], int rozmiar, int wierz, int start){
+void Prim::prim_m(int ** macierz, int rozmiar, int wierz, int start){
     int lista2[10000][3] = {0};
     int l_rozmiar = 0;
     int t_rozmiar = 0;

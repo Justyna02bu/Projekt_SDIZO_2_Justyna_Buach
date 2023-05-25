@@ -11,9 +11,9 @@ class Kruskal {
 public:
     Kruskal();
 
-    void kruskal_m(int macierz[100][100], int rozmiar, int wierz);
+    void kruskal_m(int ** macierz, int rozmiar, int wierz);
 
-    void kruskal_mc(int macierz[100][100], int rozmiar, int wierz, std::string nazwa);
+    void kruskal_mc(int ** macierz, int rozmiar, int wierz, std::string nazwa);
 
     void kruskal_l(int lista[10000][3], int rozmiar, int wierz);
 
