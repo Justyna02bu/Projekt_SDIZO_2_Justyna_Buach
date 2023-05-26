@@ -10,8 +10,7 @@
 #include "Kruskal.h"
 #include "Dijkstra.h"
 #include "Bellmanaforda.h"
-#define rozmiarm 100
-#define rozmiarl 10000
+
 
 using namespace std;
 const int INF = 1e9; // wartość reprezentująca brak krawędzi / nieskończoność
@@ -21,10 +20,10 @@ Prim prim;
 Kruskal kruskal;
 Dijkstra dijkstra;
 Bellmanaforda bellmanforda;
-int macierz_s[rozmiarm][rozmiarm] = {0};
-int macierz[rozmiarm][rozmiarm]= {0};
-int lista[rozmiarl][3]= {0};
-int lista_s[rozmiarl][3]= {0};
+int ** macierz_s = 0;
+int ** macierz = 0;
+int ** lista = 0;
+int ** lista_s = 0;
 int liczba_krawedzi;
 int liczba_krawedzi_s;
 int liczba_wierzcholkow;
@@ -37,21 +36,43 @@ struct Krawedz {
 vector<Krawedz> krawedzie; // wektor krawędzi
 
 void utworzmacierz(){
-    for (int j = 0; liczba_wierzcholkow > j; j++) {
-        for (int i = 0; liczba_wierzcholkow > i; i++) {
-            macierz_s[j][i] = INT_MAX;
-            macierz[j][i] = INT_MAX;
+    macierz = new int * [liczba_wierzcholkow];
+    for (int i = 0; i < liczba_wierzcholkow; i++)
+        macierz[i] = new int [liczba_wierzcholkow];
+
+    macierz_s = new int * [liczba_wierzcholkow];
+    for (int i = 0; i < liczba_wierzcholkow; i++)
+        macierz_s[i] = new int [liczba_wierzcholkow];
+
+        for (int j = 0; liczba_wierzcholkow > j; j++) {
+            for (int i = 0; liczba_wierzcholkow > i; i++) {
+                macierz_s[j][i] = INT_MAX;
+                macierz[j][i] = INT_MAX;
+            }
         }
-    }
-    for(int i = 0; liczba_krawedzi > i; i++){
-        macierz_s[krawedzie[i].zrodlo][krawedzie[i].cel] = krawedzie[i].waga;
-        macierz[krawedzie[i].cel][krawedzie[i].zrodlo] = krawedzie[i].waga;
-        macierz[krawedzie[i].zrodlo][krawedzie[i].cel] = krawedzie[i].waga;
-    }
+        for(int i = 0; liczba_krawedzi > i; i++){
+            macierz_s[krawedzie[i].zrodlo][krawedzie[i].cel] = krawedzie[i].waga;
+            macierz[krawedzie[i].cel][krawedzie[i].zrodlo] = krawedzie[i].waga;
+            macierz[krawedzie[i].zrodlo][krawedzie[i].cel] = krawedzie[i].waga;
+        }
 }
 
 void utworzlista(){
     int l_rozmiar = 0;
+    for (int i = 0; i < liczba_wierzcholkow; i++) {
+        for (int j = 0; j < liczba_wierzcholkow; j++) {
+            if (macierz[i][j] != INT_MAX){
+                l_rozmiar++;
+            }
+        }
+    }
+    liczba_krawedzi = l_rozmiar;
+
+    lista = new int * [liczba_krawedzi];
+    for (int i = 0; i < liczba_krawedzi; i++)
+        lista[i] = new int [3];
+
+    l_rozmiar = 0;
     for (int i = 0; i < liczba_wierzcholkow; i++) {
         for (int j = 0; j < liczba_wierzcholkow; j++) {
             if (macierz[i][j] != INT_MAX){
@@ -62,7 +83,20 @@ void utworzlista(){
             }
         }
     }
-    liczba_krawedzi = l_rozmiar;
+
+    l_rozmiar = 0;
+    for (int i = 0; i < liczba_wierzcholkow; i++) {
+        for (int j = 0; j < liczba_wierzcholkow; j++) {
+            if (macierz_s[i][j] != INT_MAX){
+                l_rozmiar++;
+            }
+        }
+    }
+    liczba_krawedzi_s = l_rozmiar;
+
+    lista_s = new int * [liczba_krawedzi_s];
+    for (int i = 0; i < liczba_krawedzi_s; i++)
+        lista_s[i] = new int [3];
 
     l_rozmiar = 0;
     for (int i = 0; i < liczba_wierzcholkow; i++) {
@@ -75,15 +109,34 @@ void utworzlista(){
             }
         }
     }
-    liczba_krawedzi_s = l_rozmiar;
+}
+
+void usun(){
+    for (int i = 0; i<liczba_wierzcholkow; i++)
+        delete [] macierz[i];
+    delete [] macierz;
+    for (int i = 0; i<liczba_wierzcholkow; i++)
+        delete [] macierz_s[i];
+    delete [] macierz_s;
+
+    for (int i = 0; i<liczba_krawedzi; i++)
+        delete [] lista[i];
+    delete [] lista;
+
+    for (int i = 0; i<liczba_krawedzi_s; i++)
+        delete [] lista_s[i];
+    delete [] lista_s;
+
 }
 
 void wczytaj_plik(){
+    usun();
+    krawedzie.clear();
     int wierzcholek_poczotkowy, wierzcholek_koncowy, waga_krawedzi;
     ifstream plikWejsciowy;
     cout << "Podaj nazwę pliku z końcówką .txt" << endl;
     cin >> daneWejsciowe;
-    plikWejsciowy.open(daneWejsciowe);
+    plikWejsciowy.open(daneWejsciowe, fstream::in);
 
     if (plikWejsciowy.is_open()) {
         cout << "Otwarto plik " << daneWejsciowe << endl;
@@ -96,40 +149,36 @@ void wczytaj_plik(){
 
     while(plikWejsciowy.good()){
         plikWejsciowy >> wierzcholek_poczotkowy >> wierzcholek_koncowy >> waga_krawedzi;
-        macierz[wierzcholek_poczotkowy][wierzcholek_koncowy] = macierz[wierzcholek_koncowy][wierzcholek_poczotkowy] = waga_krawedzi; /* dodanie krawędzi do macierzy sąsiedztwa */
         krawedzie.push_back({wierzcholek_poczotkowy, wierzcholek_koncowy, waga_krawedzi}); // dodanie krawędzi do wektora krawędzi
     }
 
-    plikWejsciowy.close();
     plikWejsciowy.clear();
+    plikWejsciowy.close();
     utworzmacierz();
     utworzlista();
 }
 
-void wczytaj_plik_po(){
+void wczytaj_plik_po(string pointer){
     int wierzcholek_poczotkowy, wierzcholek_koncowy, waga_krawedzi;
     ifstream plikWejsciowy;
-    plikWejsciowy.open(daneWejsciowe);
+    plikWejsciowy.open(pointer, fstream::in);
 
     if (plikWejsciowy.is_open()) {
-        cout << "Otwarto plik " << daneWejsciowe << endl;
+        cout << "Otwarto plik " << pointer << endl;
+
     } else {
         cout << "Nie udało się otworzyć pliku wejściowego" << endl;
         return;
     }
 
     plikWejsciowy >> liczba_krawedzi >> liczba_wierzcholkow >> cwierzcholek_poczotkowy >> cwierzcholek_koncowy;
-
     while(plikWejsciowy.good()){
         plikWejsciowy >> wierzcholek_poczotkowy >> wierzcholek_koncowy >> waga_krawedzi;
-        macierz[wierzcholek_poczotkowy][wierzcholek_koncowy] = macierz[wierzcholek_koncowy][wierzcholek_poczotkowy] = waga_krawedzi; /* dodanie krawędzi do macierzy sąsiedztwa */
         krawedzie.push_back({wierzcholek_poczotkowy, wierzcholek_koncowy, waga_krawedzi}); // dodanie krawędzi do wektora krawędzi
     }
 
-    plikWejsciowy.close();
     plikWejsciowy.clear();
-    utworzmacierz();
-    utworzlista();
+    plikWejsciowy.close();
 }
 
 void wypiszmacierz(int opcja_poczatkowa) {
@@ -163,14 +212,13 @@ void wypiszmacierz(int opcja_poczatkowa) {
 }
 
 void wypiszlista(int opcja_poczatkowa) {
-    int a;
     if (opcja_poczatkowa == 0) {
-        for (int i = 0; liczba_krawedzi > i; i++) {
+        for (int i = 0; liczba_krawedzi_s > i; i++) {
             cout << "[" << lista_s[i][0] << "->" << lista_s[i][1] << "]:" << lista_s[i][2] << endl;
         }
         return;
     } else if (opcja_poczatkowa == 1) {
-        for (int i = 0; liczba_krawedzi * 2 > i; i++) {
+        for (int i = 0; liczba_krawedzi > i; i++) {
             cout << "[" << lista[i][0] << "->" << lista[i][1] << "]:" << lista[i][2] << endl;
         }
         return;
@@ -188,7 +236,10 @@ void testy() {
             _chdir(tab1[j]);
             daneWejsciowe = to_string(i + 1) + ".txt";
             string nazwa = tab1s[j] + ".txt";
-            wczytaj_plik_po();
+            krawedzie.clear();
+            wczytaj_plik_po(daneWejsciowe);
+            utworzmacierz();
+            utworzlista();
             chdir("..");
 
             _mkdir(tab2[0]);
@@ -213,12 +264,12 @@ void testy() {
 
             _mkdir(tab2[4]);
             _chdir(tab2[4]);
-            dijkstra.dijkstra_mc(macierz_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, nazwa, liczba_wierzcholkow);
+            dijkstra.dijkstra_mc(macierz_s, cwierzcholek_poczotkowy, nazwa, liczba_wierzcholkow);
             chdir("..");
 
             _mkdir(tab2[5]);
             _chdir(tab2[5]);
-            dijkstra.dijkstra_lc(lista_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, liczba_krawedzi_s, nazwa, liczba_wierzcholkow);
+            dijkstra.dijkstra_lc(lista_s, cwierzcholek_poczotkowy, liczba_krawedzi_s, nazwa, liczba_wierzcholkow);
             chdir("..");
 
             _mkdir(tab2[6]);
@@ -317,8 +368,11 @@ void generuj() {
 };
 
     int main() {
-        daneWejsciowe = "tak.txt";
-        wczytaj_plik_po();
+        cout << "Podaj nazwę pliku z końcówką .txt" << endl;
+        cin >> daneWejsciowe;
+        wczytaj_plik_po(daneWejsciowe);
+        utworzmacierz();
+        utworzlista();
         SetConsoleOutputCP(CP_UTF8); // Konsola ustawiona na utf-8 aby były Polskie litery
         cout << "Autor: Justyna Bułach" << endl;
         int opcja_poczatkowa;
@@ -372,9 +426,9 @@ void generuj() {
                     break;
                 case 5:
                     cout << "Listowo:" << endl;
-                    dijkstra.dijkstra_l(lista_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, liczba_krawedzi_s, liczba_wierzcholkow);
+                    dijkstra.dijkstra_l(lista_s, cwierzcholek_poczotkowy, liczba_krawedzi_s, liczba_wierzcholkow);
                     cout << "Macierzowo:" << endl;
-                    dijkstra.dijkstra_m(macierz_s, cwierzcholek_poczotkowy, cwierzcholek_koncowy, liczba_wierzcholkow);
+                    dijkstra.dijkstra_m(macierz_s, cwierzcholek_poczotkowy, liczba_wierzcholkow);
                     cout << endl;
                     break;
                 case 6:

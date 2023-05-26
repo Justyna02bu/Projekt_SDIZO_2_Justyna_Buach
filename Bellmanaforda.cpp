@@ -12,14 +12,21 @@
 using namespace std;
 Bellmanaforda::Bellmanaforda() {}
 
-void Bellmanaforda::bell_lc(int lista[10000][3], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
+void Bellmanaforda::bell_lc(int ** lista, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "BELL Lista czas-"+nazwa;
     plikWyjsciowy.open(daneWyjsciowe, fstream::app);
 
-    int q[100] = {0};
-    int tab[10000][2] = {0};
+    int ** tab = new int * [wierz];
+    for (int i = 0; i < wierz; i++) {
+        tab[i] = new int [2];
+    }
+
+    int * q = new int [wierz];
+    for (int i = 0; i < wierz; i++) {
+        q[i] = 0;
+    }
 
     czas.Start();
     for (int j = 0; wierz > j; j++) {
@@ -50,6 +57,9 @@ void Bellmanaforda::bell_lc(int lista[10000][3], int wierzcholek_poczatkowy, int
                     minj = lista[j][1];
                 }
             }
+            if (min == -1){
+                break;
+            }
             q[minj] = 1;
             wierzob = minj;
         }
@@ -59,11 +69,15 @@ void Bellmanaforda::bell_lc(int lista[10000][3], int wierzcholek_poczatkowy, int
                 a = i;
                 il = 0;
                 while (a != wierzcholek_poczatkowy && k != 0) {
-                    if(il > wierz+1){
+                    if (il > wierz + 1) {
                         k = 0;
                     }
-                    a = tab[a][1];
-                    il ++;
+                     a = tab[a][1];
+                    if (a == -1) {
+                        k = 0;
+                        break;
+                    }
+                        il++;
                 }
             }
         }
@@ -77,11 +91,25 @@ void Bellmanaforda::bell_lc(int lista[10000][3], int wierzcholek_poczatkowy, int
     plikWyjsciowy << czas.czas_do_pliku() << endl;
     plikWyjsciowy.clear();
     plikWyjsciowy.close();
+
+    delete[] q;
+
+    for (int i = 0; i < wierz; i++) {
+        delete[] tab[i];
+    }
+    delete[] tab;
 }
 
-void Bellmanaforda::bell_l(int lista[10000][3], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
-    int q[100] = {0};
-    int tab[10000][2] = {0};
+void Bellmanaforda::bell_l(int ** lista, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
+    int ** tab = new int * [wierz];
+    for (int i = 0; i < wierz; i++) {
+        tab[i] = new int [2];
+    }
+
+    int * q = new int [wierz];
+    for (int i = 0; i < wierz; i++) {
+        q[i] = 0;
+    }
 
     for (int j = 0; wierz > j; j++) {
         tab[j][0] = INT_MAX; //d[u]
@@ -111,6 +139,9 @@ void Bellmanaforda::bell_l(int lista[10000][3], int wierzcholek_poczatkowy, int 
                     minj = lista[j][1];
                 }
             }
+            if (min == -1){
+                break;
+            }
             q[minj] = 1;
             wierzob = minj;
         }
@@ -120,11 +151,15 @@ void Bellmanaforda::bell_l(int lista[10000][3], int wierzcholek_poczatkowy, int 
                 a = i;
                 il = 0;
                 while (a != wierzcholek_poczatkowy && k != 0) {
-                    if(il > wierz+1){
+                    if (il > wierz + 1) {
                         k = 0;
                     }
                     a = tab[a][1];
-                    il ++;
+                    if (a == -1) {
+                        k = 0;
+                        break;
+                    }
+                    il++;
                 }
             }
         }
@@ -144,32 +179,67 @@ void Bellmanaforda::bell_l(int lista[10000][3], int wierzcholek_poczatkowy, int 
             il = 0;
             k = 0;
             while (a != wierzcholek_poczatkowy && k == 0) {
-                a = tab[a][1];
-                cout << "<-" << a ;
-                if (il > wierz+1){
-                    cout << " !wykryto pętlę! " <<  endl;
-                    k = 1;
+                if(tab[a][1] != -1) {
+                    a = tab[a][1];
+                    cout << "<-" << a;
+                    if (il > wierz + 1) {
+                        cout << " !wykryto pętlę! " << endl;
+                        k = 1;
+                    }
+                    il++;
+                } else{
+                    break;
                 }
-                il ++;
             }
-            cout << "| waga: "<< tab[i][0] << endl;
+            if (tab[i][0] == INT_MAX){
+                cout << "| waga: brak trasy"<< endl;
+            } else {
+                cout << "| waga: "<< tab[i][0] << endl;
+            }
         }
     }
     cout << endl;
+
+    delete[] q;
+
+    for (int i = 0; i < wierz; i++) {
+        delete[] tab[i];
+    }
+    delete[] tab;
 }
 
-void Bellmanaforda::bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
+void Bellmanaforda::bell_mc(int ** macierz, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, string nazwa, int wierz) {
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "BELL Macierz czas-"+nazwa;
     plikWyjsciowy.open(daneWyjsciowe, fstream::app);
 
-    int lista2[10000][3] = {0};
+    int * q = new int [wierz];
+    for (int i = 0; i < wierz; i++) {
+        q[i] = 0;
+    }
+
+    int ** tab = new int * [wierz];
+    for (int i = 0; i < wierz; i++) {
+        tab[i] = new int [2];
+    }
+
     int l_rozmiar = 0;
-    int q[100] = {0};
-    int tab[100][2] = {0};
+    for (int i = 0; i < wierz; i++) {
+        for (int j = 0; j < wierz; j++) {
+            if (macierz[i][j] != INT_MAX){
+                l_rozmiar++;
+            }
+        }
+    }
+
+    int ** lista2 = new int * [l_rozmiar];
+    for (int i = 0; i < l_rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
 
     czas.Start();
+    l_rozmiar = 0;
     for (int i = 0; i < wierz; i++) {
         for (int j = 0; j < wierz; j++) {
             if (macierz[i][j] != INT_MAX){
@@ -209,6 +279,9 @@ void Bellmanaforda::bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, i
                     minj = lista2[j][1];
                 }
             }
+            if (min == -1){
+                break;
+            }
             q[minj] = 1;
             wierzob = minj;
         }
@@ -218,11 +291,15 @@ void Bellmanaforda::bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, i
                 a = i;
                 il = 0;
                 while (a != wierzcholek_poczatkowy && k != 0) {
-                    if(il > wierz+1){
+                    if (il > wierz + 1) {
                         k = 0;
                     }
                     a = tab[a][1];
-                    il ++;
+                    if (a == -1) {
+                        k = 0;
+                        break;
+                    }
+                    il++;
                 }
             }
         }
@@ -235,14 +312,46 @@ void Bellmanaforda::bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, i
     plikWyjsciowy << czas.czas_do_pliku() << endl;
     plikWyjsciowy.clear();
     plikWyjsciowy.close();
+
+    delete[] q;
+
+    for (int i = 0; i < l_rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < wierz; i++) {
+        delete[] tab[i];
+    }
+    delete[] tab;
 }
 
-void Bellmanaforda::bell_m(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
-    int lista2[10000][3] = {0};
-    int l_rozmiar = 0;
-    int q[100] = {0};
-    int tab[100][2] = {0};
+void Bellmanaforda::bell_m(int ** macierz, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz) {
+    int * q = new int [wierz];
+    for (int i = 0; i < wierz; i++) {
+        q[i] = 0;
+    }
 
+    int ** tab = new int * [wierz];
+    for (int i = 0; i < wierz; i++) {
+        tab[i] = new int [2];
+    }
+
+    int l_rozmiar = 0;
+    for (int i = 0; i < wierz; i++) {
+        for (int j = 0; j < wierz; j++) {
+            if (macierz[i][j] != INT_MAX){
+                l_rozmiar++;
+            }
+        }
+    }
+
+    int ** lista2 = new int * [l_rozmiar];
+    for (int i = 0; i < l_rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+
+    l_rozmiar = 0;
     for (int i = 0; i < wierz; i++) {
         for (int j = 0; j < wierz; j++) {
             if (macierz[i][j] != INT_MAX){
@@ -283,6 +392,9 @@ void Bellmanaforda::bell_m(int macierz[100][100], int wierzcholek_poczatkowy, in
                     minj = lista2[j][1];
                 }
             }
+            if (min == -1){
+                break;
+            }
             q[minj] = 1;
             wierzob = minj;
         }
@@ -292,11 +404,15 @@ void Bellmanaforda::bell_m(int macierz[100][100], int wierzcholek_poczatkowy, in
                 a = i;
                 il = 0;
                 while (a != wierzcholek_poczatkowy && k != 0) {
-                    if(il > wierz+1){
+                    if (il > wierz + 1) {
                         k = 0;
                     }
                     a = tab[a][1];
-                    il ++;
+                    if (a == -1) {
+                        k = 0;
+                        break;
+                    }
+                    il++;
                 }
             }
         }
@@ -316,17 +432,37 @@ void Bellmanaforda::bell_m(int macierz[100][100], int wierzcholek_poczatkowy, in
             il = 0;
             k = 0;
             while (a != wierzcholek_poczatkowy && k == 0) {
-                a = tab[a][1];
-                cout << "<-" << a ;
-                if (il > wierz+1){
-                    cout << " !wykryto pętlę! " <<  endl;
-                    k = 1;
+                if(tab[a][1] != -1) {
+                    a = tab[a][1];
+                    cout << "<-" << a;
+                    if (il > wierz + 1) {
+                        cout << " !wykryto pętlę! " << endl;
+                        k = 1;
+                    }
+                    il++;
+                } else{
+                    break;
                 }
-                il ++;
             }
-            cout << "| waga: "<< tab[i][0] << endl;
+            if (tab[i][0] == INT_MAX){
+                cout << "| waga: brak trasy"<< endl;
+            } else {
+                cout << "| waga: "<< tab[i][0] << endl;
+            }
         }
     }
     cout << endl;
+
+    delete[] q;
+
+    for (int i = 0; i < l_rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < wierz; i++) {
+        delete[] tab[i];
+    }
+    delete[] tab;
 }
 

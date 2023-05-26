@@ -11,18 +11,24 @@ using namespace std;
 
 Kruskal::Kruskal() {}
 
-void Kruskal::kruskal_mc(int macierz[100][100], int rozmiar, int wierz, string nazwa){
+void Kruskal::kruskal_mc(int ** macierz, int rozmiar, int wierz, string nazwa){
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "KRUSKAL macierz czas-"+nazwa;
     plikWyjsciowy.open(daneWyjsciowe, fstream::app);
 
-    int lista2[100][3] = {0};
-    int l_rozmiar = 0;
     int t_rozmiar = 0;
     int waga = 0;
-    int t[100][3] = {0};
-    int pentla[100] = {0};
+    int l_rozmiar = 0;
+    int ** lista2 = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+    int * pentla = new int [wierz];
+    int ** t = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        t[i] = new int [3];
+    }
 
     czas.Start();
     for (int i = 0; i < wierz; i++) {
@@ -54,8 +60,18 @@ void Kruskal::kruskal_mc(int macierz[100][100], int rozmiar, int wierz, string n
 
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
-        for (int j = 0; l_rozmiar > j; j++) {
-            if (pentla[lista2[j][1]] == 0 || pentla[lista2[j][0]] == 0) {
+        for (int j = 0; rozmiar > j; j++) {
+            if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            }
+            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -71,15 +87,33 @@ void Kruskal::kruskal_mc(int macierz[100][100], int rozmiar, int wierz, string n
     plikWyjsciowy << czas.czas_do_pliku() << endl;
     plikWyjsciowy.clear();
     plikWyjsciowy.close();
+
+    delete[] pentla;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] t[i];
+    }
+    delete[] t;
 }
 
-void Kruskal::kruskal_m(int macierz[100][100], int rozmiar, int wierz){
-    int lista2[100][3] = {0};
-    int l_rozmiar = 0;
+void Kruskal::kruskal_m(int ** macierz, int rozmiar, int wierz){
     int t_rozmiar = 0;
     int waga = 0;
-    int t[100][3] = {0};
-    int pentla[100] = {0};
+    int l_rozmiar = 0;
+    int ** lista2 = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+    int * pentla = new int [wierz];
+    int ** t = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        t[i] = new int [3];
+    }
 
     for (int i = 0; i < wierz; i++) {
         for (int j = 0; j < wierz; j++) {
@@ -110,8 +144,18 @@ void Kruskal::kruskal_m(int macierz[100][100], int rozmiar, int wierz){
 
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
-        for (int j = 0; l_rozmiar > j; j++) {
-            if (pentla[lista2[j][1]] == 0 || pentla[lista2[j][0]] == 0) {
+        for (int j = 0; rozmiar > j; j++) {
+            if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            }
+            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -127,18 +171,36 @@ void Kruskal::kruskal_m(int macierz[100][100], int rozmiar, int wierz){
         cout << "[" << t[i][0] << "->" << t[i][1] << "]" << t[i][2] << endl;
     cout << "   Suma wag: " << waga << endl;
     cout << "   Ilość krawędzi: " << t_rozmiar << endl;
+
+    delete[] pentla;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] t[i];
+    }
+    delete[] t;
 }
 
-void Kruskal::kruskal_lc(int lista[10000][3], int rozmiar, int wierz, string nazwa){
+void Kruskal::kruskal_lc(int ** lista, int rozmiar, int wierz, string nazwa){
     Czasomierz czas;
     ofstream plikWyjsciowy;
     string daneWyjsciowe = "KRUSKAL Lista czas-"+nazwa;
     plikWyjsciowy.open(daneWyjsciowe, fstream::app);
-    int lista2[10000][3] = {0};
     int t_rozmiar = 0;
     int waga = 0;
-    int t[10000][3] = {0};
-    int pentla[100] = {0};
+    int ** lista2 = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+    int * pentla = new int [wierz];
+    int ** t = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        t[i] = new int [3];
+    }
 
     czas.Start();
     for (int j = 0; rozmiar > j; j++) {
@@ -168,7 +230,17 @@ void Kruskal::kruskal_lc(int lista[10000][3], int rozmiar, int wierz, string naz
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
         for (int j = 0; rozmiar > j; j++) {
-            if (pentla[lista2[j][1]] == 0 || pentla[lista2[j][0]] == 0) {
+            if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            }
+            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -184,14 +256,32 @@ void Kruskal::kruskal_lc(int lista[10000][3], int rozmiar, int wierz, string naz
     plikWyjsciowy << czas.czas_do_pliku() << endl;
     plikWyjsciowy.clear();
     plikWyjsciowy.close();
+
+    delete[] pentla;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] t[i];
+    }
+    delete[] t;
 }
 
-void Kruskal::kruskal_l(int lista[10000][3], int rozmiar, int wierz) {
-    int lista2[10000][3] = {0};
+void Kruskal::kruskal_l(int ** lista, int rozmiar, int wierz) {
     int t_rozmiar = 0;
     int waga = 0;
-    int t[10000][3] = {0};
-    int pentla[100] = {0};
+    int ** lista2 = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        lista2[i] = new int [3];
+    }
+    int * pentla = new int [wierz];
+    int ** t = new int * [rozmiar];
+    for (int i = 0; i < rozmiar; i++) {
+        t[i] = new int [3];
+    }
 
     for (int j = 0; rozmiar > j; j++) {
         for (int i = 0; 3 > i; i++) {
@@ -218,7 +308,17 @@ void Kruskal::kruskal_l(int lista[10000][3], int rozmiar, int wierz) {
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
         for (int j = 0; rozmiar > j; j++) {
-            if (pentla[lista2[j][1]] == 0 || pentla[lista2[j][0]] == 0) {
+            if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            }
+            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -234,4 +334,16 @@ void Kruskal::kruskal_l(int lista[10000][3], int rozmiar, int wierz) {
         cout << "[" << t[i][0] << "->" << t[i][1] << "]" << t[i][2] << endl;
     cout << "   Suma wag: " << waga << endl;
     cout << "   Ilość krawędzi: " << t_rozmiar << endl;
+
+    delete[] pentla;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] lista2[i];
+    }
+    delete[] lista2;
+
+    for (int i = 0; i < rozmiar; i++) {
+        delete[] t[i];
+    }
+    delete[] t;
 }

@@ -11,11 +11,11 @@ class Bellmanaforda {
 public:
     Bellmanaforda();
 
-    void bell_lc(int lista[10000][3], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, std::string nazwa, int wierz);
+    void bell_lc(int ** lista, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, std::string nazwa, int wierz);
 
-    void bell_l(int lista[10000][3], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz);
+    void bell_l(int ** lista, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz);
 
-    void bell_mc(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, std::string nazwa, int wierz);
+    void bell_mc(int ** macierz, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, std::string nazwa, int wierz);
 
-    void bell_m(int macierz[100][100], int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz);
+    void bell_m(int ** macierz, int wierzcholek_poczatkowy, int wierzcholek_koncowy, int rozmiar, int wierz);
 };

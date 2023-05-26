@@ -49,8 +49,6 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/main.cpp.obj: CXX_COMPI
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   OBJECT_FILE_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
 
 build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Kruskal.cpp.obj: CXX_COMPILER__Projekt_SDIZO_2_Justyna_Buach_Debug C$:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu³ach/Kruskal.cpp || cmake_object_order_depends_target_Projekt_SDIZO_2_Justyna_Buach_DEBUG
   DEFINES = -DCMAKE_INTDIR=\"Debug\"
@@ -58,8 +56,6 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Kruskal.cpp.obj: CXX_CO
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   OBJECT_FILE_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
 
 build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Dijkstra.cpp.obj: CXX_COMPILER__Projekt_SDIZO_2_Justyna_Buach_Debug C$:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu³ach/Dijkstra.cpp || cmake_object_order_depends_target_Projekt_SDIZO_2_Justyna_Buach_DEBUG
   DEFINES = -DCMAKE_INTDIR=\"Debug\"
@@ -67,8 +63,6 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Dijkstra.cpp.obj: CXX_C
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   OBJECT_FILE_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
 
 build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Prim.cpp.obj: CXX_COMPILER__Projekt_SDIZO_2_Justyna_Buach_Debug C$:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu³ach/Prim.cpp || cmake_object_order_depends_target_Projekt_SDIZO_2_Justyna_Buach_DEBUG
   DEFINES = -DCMAKE_INTDIR=\"Debug\"
@@ -76,8 +70,6 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Prim.cpp.obj: CXX_COMPI
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   OBJECT_FILE_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
 
 build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Czasomierz.cpp.obj: CXX_COMPILER__Projekt_SDIZO_2_Justyna_Buach_Debug C$:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu³ach/Czasomierz.cpp || cmake_object_order_depends_target_Projekt_SDIZO_2_Justyna_Buach_DEBUG
   DEFINES = -DCMAKE_INTDIR=\"Debug\"
@@ -85,8 +77,6 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Czasomierz.cpp.obj: CXX
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   OBJECT_FILE_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
 
 build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Bellmanaforda.cpp.obj: CXX_COMPILER__Projekt_SDIZO_2_Justyna_Buach_Debug C$:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu³ach/Bellmanaforda.cpp || cmake_object_order_depends_target_Projekt_SDIZO_2_Justyna_Buach_DEBUG
   DEFINES = -DCMAKE_INTDIR=\"Debug\"
@@ -94,8 +84,6 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Bellmanaforda.cpp.obj: 
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   OBJECT_FILE_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
 
 
 # =============================================================================
@@ -107,14 +95,14 @@ build CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Bellmanaforda.cpp.obj: 
 
 build Debug/Projekt_SDIZO_2_Justyna_Buach.exe: CXX_EXECUTABLE_LINKER__Projekt_SDIZO_2_Justyna_Buach_Debug CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/main.cpp.obj CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Kruskal.cpp.obj CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Dijkstra.cpp.obj CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Prim.cpp.obj CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Czasomierz.cpp.obj CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Bellmanaforda.cpp.obj
   FLAGS = -g
+  LINK_FLAGS = -static
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\Projekt_SDIZO_2_Justyna_Buach.dir\Debug\
   TARGET_FILE = Debug\Projekt_SDIZO_2_Justyna_Buach.exe
   TARGET_IMPLIB = Debug\libProjekt_SDIZO_2_Justyna_Buach.dll.a
-  TARGET_PDB = Debug\Projekt_SDIZO_2_Justyna_Buach.pdb
+  TARGET_PDB = Projekt_SDIZO_2_Justyna_Buach.exe.dbg
 
 build Projekt_SDIZO_2_Justyna_Buach.exe$:Debug: phony Debug/Projekt_SDIZO_2_Justyna_Buach.exe
 
