@@ -1,0 +1,148 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Projekt_SDIZO_2_Justyna_Buach",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Projekt_SDIZO_2_Justyna_Buach::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Projekt_SDIZO_2_Justyna_Buach-Debug-0e6c9e6477d5abe676b7.json",
+					"name" : "Projekt_SDIZO_2_Justyna_Buach",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Projekt_SDIZO_2_Justyna_Buach",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Projekt_SDIZO_2_Justyna_Buach::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Projekt_SDIZO_2_Justyna_Buach-Release-4efd044e0a4e1f6fdc87.json",
+					"name" : "Projekt_SDIZO_2_Justyna_Buach",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Projekt_SDIZO_2_Justyna_Buach",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Projekt_SDIZO_2_Justyna_Buach::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Projekt_SDIZO_2_Justyna_Buach-RelWithDebInfo-c21a34abf5a71540498f.json",
+					"name" : "Projekt_SDIZO_2_Justyna_Buach",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu\u0142ach/cmake-build-release",
+		"source" : "C:/Users/Justy/CLionProjects/Projekt_SDIZO_2_Justyna_Bu\u0142ach"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

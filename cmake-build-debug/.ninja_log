@@ -1,0 +1,16 @@
+# ninja log v5
+604	1014	7067248449255656	Debug/Projekt_SDIZO_2_Justyna_Buach.exe	19490b945db1fa18
+48	1270	7067144421832424	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Czasomierz.cpp.obj	574b1d49a75f5857
+1	204	7067248888583305	build.ninja	96a89a5ce46eb084
+4	371	7067230966488462	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Prim.cpp.obj	e7481af010aff956
+9	808	7067237989957131	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Kruskal.cpp.obj	37528144ea1a6092
+3	502	7067244548965525	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Dijkstra.cpp.obj	bedfdbf9baf892f5
+5	603	7067248445227502	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/Bellmanaforda.cpp.obj	545840e6a4051527
+9	2031	7067225130157642	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Debug/main.cpp.obj	3feeee72d9cb18bd
+8	590	7067249022011254	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Release/Czasomierz.cpp.obj	a3b3147dcbbe2880
+17	866	7067249024761933	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Release/Prim.cpp.obj	26381110433c1e8
+24	892	7067249025040573	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Release/Kruskal.cpp.obj	1ba3eebae1bc258f
+30	929	7067249025417609	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Release/Dijkstra.cpp.obj	1dc0a3b73f3f917d
+0	939	7067249025509759	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Release/Bellmanaforda.cpp.obj	4affc41fad7335ee
+39	2054	7067249036659792	CMakeFiles/Projekt_SDIZO_2_Justyna_Buach.dir/Release/main.cpp.obj	a4068e154bdc1eff
+2054	2426	7067249040275267	Release/Projekt_SDIZO_2_Justyna_Buach.exe	a464418b9587ad64
