@@ -57,7 +57,8 @@ void Kruskal::kruskal_mc(int ** macierz, int rozmiar, int wierz, string nazwa){
             }
         }
     }
-
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
         for (int j = 0; rozmiar > j; j++) {
@@ -70,8 +71,7 @@ void Kruskal::kruskal_mc(int ** macierz, int rozmiar, int wierz, string nazwa){
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
-            }
-            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
+            } else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -80,6 +80,59 @@ void Kruskal::kruskal_mc(int ** macierz, int rozmiar, int wierz, string nazwa){
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 1){
+                int wsk = 0;
+                int wsk3 = 0;
+                int * pentlawe = new int [wierz];
+                for (int l = 0; l < wierz; l++)
+                    pentlawe[l] = 0;
+                pentlawe[lista2[j][0]] = 1;
+                while (wsk == 0 && wsk3 == 0){
+                    wsk3 = 1;
+                    for (int l = 0; t_rozmiar > l; l++) {
+                        if(pentlawe[t[l][0]] == 1 && pentlawe[t[l][1]] == 0){
+                            wsk3 = 0;
+                            if(t[l][1] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][1]] = 1;
+                            }
+                        }
+                        if(pentlawe[t[l][0]] == 0 && pentlawe[t[l][1]] == 1){
+                            wsk3 = 0;
+                            if(t[l][0] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][0]] = 1;
+                            }
+                        }
+                    }
+                }
+                if (wsk == 1)
+                {
+                    delete[] pentlawe;
+                } else {
+                    t[t_rozmiar][0] = lista2[j][0];
+                    t[t_rozmiar][1] = lista2[j][1];
+                    t[t_rozmiar][2] = lista2[j][2];
+                    waga = waga + lista2[j][2];
+                    t_rozmiar++;
+                    pentla[lista2[j][1]] = 1;
+                    pentla[lista2[j][0]] = 1;
+                    delete[] pentlawe;
+                    break;
+                }
             }
         }
     }
@@ -141,7 +194,8 @@ void Kruskal::kruskal_m(int ** macierz, int rozmiar, int wierz){
             }
         }
     }
-
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
         for (int j = 0; rozmiar > j; j++) {
@@ -154,8 +208,7 @@ void Kruskal::kruskal_m(int ** macierz, int rozmiar, int wierz){
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
-            }
-            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
+            } else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -164,6 +217,59 @@ void Kruskal::kruskal_m(int ** macierz, int rozmiar, int wierz){
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 1){
+                int wsk = 0;
+                int wsk3 = 0;
+                int * pentlawe = new int [wierz];
+                for (int l = 0; l < wierz; l++)
+                    pentlawe[l] = 0;
+                pentlawe[lista2[j][0]] = 1;
+                while (wsk == 0 && wsk3 == 0){
+                    wsk3 = 1;
+                    for (int l = 0; t_rozmiar > l; l++) {
+                        if(pentlawe[t[l][0]] == 1 && pentlawe[t[l][1]] == 0){
+                            wsk3 = 0;
+                            if(t[l][1] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][1]] = 1;
+                            }
+                        }
+                        if(pentlawe[t[l][0]] == 0 && pentlawe[t[l][1]] == 1){
+                            wsk3 = 0;
+                            if(t[l][0] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][0]] = 1;
+                            }
+                        }
+                    }
+                }
+                if (wsk == 1)
+                {
+                    delete[] pentlawe;
+                } else {
+                    t[t_rozmiar][0] = lista2[j][0];
+                    t[t_rozmiar][1] = lista2[j][1];
+                    t[t_rozmiar][2] = lista2[j][2];
+                    waga = waga + lista2[j][2];
+                    t_rozmiar++;
+                    pentla[lista2[j][1]] = 1;
+                    pentla[lista2[j][0]] = 1;
+                    delete[] pentlawe;
+                    break;
+                }
             }
         }
     }
@@ -226,7 +332,8 @@ void Kruskal::kruskal_lc(int ** lista, int rozmiar, int wierz, string nazwa){
         }
     }
 
-
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
         for (int j = 0; rozmiar > j; j++) {
@@ -239,8 +346,7 @@ void Kruskal::kruskal_lc(int ** lista, int rozmiar, int wierz, string nazwa){
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
-            }
-            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
+            } else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -249,6 +355,59 @@ void Kruskal::kruskal_lc(int ** lista, int rozmiar, int wierz, string nazwa){
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 1){
+                int wsk = 0;
+                int wsk3 = 0;
+                int * pentlawe = new int [wierz];
+                for (int l = 0; l < wierz; l++)
+                    pentlawe[l] = 0;
+                pentlawe[lista2[j][0]] = 1;
+                while (wsk == 0 && wsk3 == 0){
+                    wsk3 = 1;
+                    for (int l = 0; t_rozmiar > l; l++) {
+                        if(pentlawe[t[l][0]] == 1 && pentlawe[t[l][1]] == 0){
+                            wsk3 = 0;
+                            if(t[l][1] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][1]] = 1;
+                            }
+                        }
+                        if(pentlawe[t[l][0]] == 0 && pentlawe[t[l][1]] == 1){
+                            wsk3 = 0;
+                            if(t[l][0] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][0]] = 1;
+                            }
+                        }
+                    }
+                }
+                if (wsk == 1)
+                {
+                    delete[] pentlawe;
+                } else {
+                    t[t_rozmiar][0] = lista2[j][0];
+                    t[t_rozmiar][1] = lista2[j][1];
+                    t[t_rozmiar][2] = lista2[j][2];
+                    waga = waga + lista2[j][2];
+                    t_rozmiar++;
+                    pentla[lista2[j][1]] = 1;
+                    pentla[lista2[j][0]] = 1;
+                    delete[] pentlawe;
+                    break;
+                }
             }
         }
     }
@@ -304,7 +463,8 @@ void Kruskal::kruskal_l(int ** lista, int rozmiar, int wierz) {
             }
         }
     }
-
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[lista2[0][0]] = 1;
     for (int i = 0; wierz-1 > i; i++) {
         for (int j = 0; rozmiar > j; j++) {
@@ -317,8 +477,7 @@ void Kruskal::kruskal_l(int ** lista, int rozmiar, int wierz) {
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
-            }
-            else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
+            } else if (pentla[lista2[j][1]] == 0 && pentla[lista2[j][0]] == 1) {
                 t[t_rozmiar][0] = lista2[j][0];
                 t[t_rozmiar][1] = lista2[j][1];
                 t[t_rozmiar][2] = lista2[j][2];
@@ -327,6 +486,59 @@ void Kruskal::kruskal_l(int ** lista, int rozmiar, int wierz) {
                 pentla[lista2[j][1]] = 1;
                 pentla[lista2[j][0]] = 1;
                 break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 0) {
+                t[t_rozmiar][0] = lista2[j][0];
+                t[t_rozmiar][1] = lista2[j][1];
+                t[t_rozmiar][2] = lista2[j][2];
+                waga = waga + lista2[j][2];
+                t_rozmiar++;
+                pentla[lista2[j][1]] = 1;
+                pentla[lista2[j][0]] = 1;
+                break;
+            } else if (pentla[lista2[j][1]] == 1 && pentla[lista2[j][0]] == 1){
+                int wsk = 0;
+                int wsk3 = 0;
+                int * pentlawe = new int [wierz];
+                for (int l = 0; l < wierz; l++)
+                    pentlawe[l] = 0;
+                pentlawe[lista2[j][0]] = 1;
+                while (wsk == 0 && wsk3 == 0){
+                    wsk3 = 1;
+                    for (int l = 0; t_rozmiar > l; l++) {
+                        if(pentlawe[t[l][0]] == 1 && pentlawe[t[l][1]] == 0){
+                            wsk3 = 0;
+                            if(t[l][1] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][1]] = 1;
+                            }
+                        }
+                        if(pentlawe[t[l][0]] == 0 && pentlawe[t[l][1]] == 1){
+                            wsk3 = 0;
+                            if(t[l][0] == lista2[j][1]){
+                                wsk = 1;
+                            }
+                            else{
+                                pentlawe[t[l][0]] = 1;
+                            }
+                        }
+                    }
+                }
+                if (wsk == 1)
+                {
+                    delete[] pentlawe;
+                } else {
+                    t[t_rozmiar][0] = lista2[j][0];
+                    t[t_rozmiar][1] = lista2[j][1];
+                    t[t_rozmiar][2] = lista2[j][2];
+                    waga = waga + lista2[j][2];
+                    t_rozmiar++;
+                    pentla[lista2[j][1]] = 1;
+                    pentla[lista2[j][0]] = 1;
+                    delete[] pentlawe;
+                    break;
+                }
             }
         }
     }

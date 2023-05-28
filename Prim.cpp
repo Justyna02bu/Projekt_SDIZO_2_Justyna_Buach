@@ -59,13 +59,15 @@ void Prim::prim_mc(int ** macierz, int rozmiar, int wierz, string nazwa, int sta
         }
     }
 
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[start] = 1;
     for(int i = 0; wierz-1 > i; i++){
-        for (int j = 0; l_rozmiar > j; j++){
+        for (int j = 0; rozmiar > j; j++){
             if (pentla[lista2[j][0]] == 1 && pentla[lista2[j][1]] == 0){
-                t[t_rozmiar][0] = lista2[j][0];
-                t[t_rozmiar][1] = lista2[j][1];
-                t[t_rozmiar][2] = lista2[j][2];
+                t[i][0] = lista2[j][0];
+                t[i][1] = lista2[j][1];
+                t[i][2] = lista2[j][2];
                 waga = waga + lista2[j][2];
                 t_rozmiar++;
                 pentla[lista2[j][1]] = 1;
@@ -134,14 +136,15 @@ void Prim::prim_m(int ** macierz, int rozmiar, int wierz, int start){
             }
         }
     }
-
+     for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[start] = 1;
     for(int i = 0; wierz-1 > i; i++){
         for (int j = 0; rozmiar > j; j++){
             if (pentla[lista2[j][0]] == 1 && pentla[lista2[j][1]] == 0){
-                t[t_rozmiar][0] = lista2[j][0];
-                t[t_rozmiar][1] = lista2[j][1];
-                t[t_rozmiar][2] = lista2[j][2];
+                t[i][0] = lista2[j][0];
+                t[i][1] = lista2[j][1];
+                t[i][2] = lista2[j][2];
                 waga = waga + lista2[j][2];
                 t_rozmiar++;
                 pentla[lista2[j][1]] = 1;
@@ -150,6 +153,8 @@ void Prim::prim_m(int ** macierz, int rozmiar, int wierz, int start){
             }
         }
     }
+
+    cout << "krawędzie MST: " << endl;
     for (int i = 0; i < t_rozmiar; i++)
         cout << "[" << t[i][0] << "->" << t[i][1] << "]" << t[i][2] << endl;
     cout << "   Suma wag: " << waga << endl;
@@ -208,13 +213,15 @@ void Prim::prim_lc(int ** lista, int rozmiar, int wierz, string nazwa, int start
         }
     }
 
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[start] = 1;
     for(int i = 0; wierz-1 > i; i++){
         for (int j = 0; rozmiar > j; j++){
             if (pentla[lista2[j][0]] == 1 && pentla[lista2[j][1]] == 0){
-                t[t_rozmiar][0] = lista2[j][0];
-                t[t_rozmiar][1] = lista2[j][1];
-                t[t_rozmiar][2] = lista2[j][2];
+                t[i][0] = lista2[j][0];
+                t[i][1] = lista2[j][1];
+                t[i][2] = lista2[j][2];
                 waga = waga + lista2[j][2];
                 t_rozmiar++;
                 pentla[lista2[j][1]] = 1;
@@ -277,13 +284,15 @@ void Prim::prim_l(int ** lista, int rozmiar, int wierz, int start) {
         }
     }
 
+    for (int i = 0; i < wierz; i++)
+        pentla[i] = 0;
     pentla[start] = 1;
     for(int i = 0; wierz-1 > i; i++){
         for (int j = 0; rozmiar > j; j++){
             if (pentla[lista2[j][0]] == 1 && pentla[lista2[j][1]] == 0){
-                t[t_rozmiar][0] = lista2[j][0];
-                t[t_rozmiar][1] = lista2[j][1];
-                t[t_rozmiar][2] = lista2[j][2];
+                t[i][0] = lista2[j][0];
+                t[i][1] = lista2[j][1];
+                t[i][2] = lista2[j][2];
                 waga = waga + lista2[j][2];
                 t_rozmiar++;
                 pentla[lista2[j][1]] = 1;
@@ -292,6 +301,7 @@ void Prim::prim_l(int ** lista, int rozmiar, int wierz, int start) {
             }
         }
     }
+
     for (int i = 0; i < t_rozmiar; i++)
         cout << "[" << t[i][0] << "->" << t[i][1] << "]" << t[i][2] << endl;
     cout << "   Suma wag: " << waga << endl;

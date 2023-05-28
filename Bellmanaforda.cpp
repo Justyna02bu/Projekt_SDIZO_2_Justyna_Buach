@@ -40,28 +40,17 @@ void Bellmanaforda::bell_lc(int ** lista, int wierzcholek_poczatkowy, int wierzc
     int k = 1;
     int il = 0;
     while (k != 0) {
-        int wierzob = wierzcholek_poczatkowy;
         k = 0;
-        for (int i = 0; i < wierz - 1; i++) {
-            int min = INT_MAX;
-            int minj = 0;
+        for (int i = 0; i < wierz; i++) {
             for (int j = 0; j < rozmiar; j++) {
-                if (lista[j][0] == wierzob && q[lista[j][1]] != 1)
+                if (lista[j][0] == i && q[lista[j][0]] == 1)
                     if (tab[lista[j][1]][0] > tab[lista[j][0]][0] + lista[j][2]) {
                         tab[lista[j][1]][0] = tab[lista[j][0]][0] + lista[j][2];
                         tab[lista[j][1]][1] = lista[j][0];
+                        q[lista[j][1]] = 1;
                         k = 1;
                     }
-                if (q[lista[j][1]] != 1 && min > tab[lista[j][1]][0]) {
-                    min = tab[lista[j][1]][0];
-                    minj = lista[j][1];
-                }
             }
-            if (min == -1){
-                break;
-            }
-            q[minj] = 1;
-            wierzob = minj;
         }
         int a;
         for (int i = 0; i < wierz && k != 0; i++) {
@@ -72,19 +61,19 @@ void Bellmanaforda::bell_lc(int ** lista, int wierzcholek_poczatkowy, int wierzc
                     if (il > wierz + 1) {
                         k = 0;
                     }
-                     a = tab[a][1];
+                    a = tab[a][1];
                     if (a == -1) {
                         k = 0;
                         break;
                     }
-                        il++;
+                    il++;
                 }
             }
         }
         for (int i = 0; i < wierz; i++){
             q[i] = 0;
         }
-        q[wierzcholek_poczatkowy] = 1;
+        q[1] = 1;
     }
 
     czas.Stop();
@@ -122,28 +111,17 @@ void Bellmanaforda::bell_l(int ** lista, int wierzcholek_poczatkowy, int wierzch
     int k = 1;
     int il = 0;
     while (k != 0) {
-        int wierzob = wierzcholek_poczatkowy;
         k = 0;
-        for (int i = 0; i < wierz - 1; i++) {
-            int min = INT_MAX;
-            int minj = 0;
+        for (int i = 0; i < wierz; i++) {
             for (int j = 0; j < rozmiar; j++) {
-                if (lista[j][0] == wierzob && q[lista[j][1]] != 1)
+                if (lista[j][0] == i && q[lista[j][0]] == 1)
                     if (tab[lista[j][1]][0] > tab[lista[j][0]][0] + lista[j][2]) {
                         tab[lista[j][1]][0] = tab[lista[j][0]][0] + lista[j][2];
                         tab[lista[j][1]][1] = lista[j][0];
+                        q[lista[j][1]] = 1;
                         k = 1;
                     }
-                if (q[lista[j][1]] != 1 && min > tab[lista[j][1]][0]) {
-                    min = tab[lista[j][1]][0];
-                    minj = lista[j][1];
-                }
             }
-            if (min == -1){
-                break;
-            }
-            q[minj] = 1;
-            wierzob = minj;
         }
         int a;
         for (int i = 0; i < wierz && k != 0; i++) {
@@ -166,7 +144,7 @@ void Bellmanaforda::bell_l(int ** lista, int wierzcholek_poczatkowy, int wierzch
         for (int i = 0; i < wierz; i++){
             q[i] = 0;
         }
-        q[wierzcholek_poczatkowy] = 1;
+        q[1] = 1;
     }
 
     int a = 0;
@@ -262,28 +240,17 @@ void Bellmanaforda::bell_mc(int ** macierz, int wierzcholek_poczatkowy, int wier
     int k = 1;
     int il = 0;
     while (k != 0) {
-        int wierzob = wierzcholek_poczatkowy;
         k = 0;
-        for (int i = 0; i < wierz - 1; i++) {
-            int min = INT_MAX;
-            int minj = 0;
-            for (int j = 0; j < l_rozmiar; j++) {
-                if (lista2[j][0] == wierzob && q[lista2[j][1]] != 1)
+        for (int i = 0; i < wierz; i++) {
+            for (int j = 0; j < rozmiar; j++) {
+                if (lista2[j][0] == i && q[lista2[j][0]] == 1)
                     if (tab[lista2[j][1]][0] > tab[lista2[j][0]][0] + lista2[j][2]) {
                         tab[lista2[j][1]][0] = tab[lista2[j][0]][0] + lista2[j][2];
                         tab[lista2[j][1]][1] = lista2[j][0];
+                        q[lista2[j][1]] = 1;
                         k = 1;
                     }
-                if (q[lista2[j][1]] != 1 && min > tab[lista2[j][1]][0]) {
-                    min = tab[lista2[j][1]][0];
-                    minj = lista2[j][1];
-                }
             }
-            if (min == -1){
-                break;
-            }
-            q[minj] = 1;
-            wierzob = minj;
         }
         int a;
         for (int i = 0; i < wierz && k != 0; i++) {
@@ -306,7 +273,7 @@ void Bellmanaforda::bell_mc(int ** macierz, int wierzcholek_poczatkowy, int wier
         for (int i = 0; i < wierz; i++){
             q[i] = 0;
         }
-        q[wierzcholek_poczatkowy] = 1;
+        q[1] = 1;
     }
     czas.Stop();
     plikWyjsciowy << czas.czas_do_pliku() << endl;
@@ -375,28 +342,17 @@ void Bellmanaforda::bell_m(int ** macierz, int wierzcholek_poczatkowy, int wierz
     int k = 1;
     int il = 0;
     while (k != 0) {
-        int wierzob = wierzcholek_poczatkowy;
         k = 0;
-        for (int i = 0; i < wierz - 1; i++) {
-            int min = INT_MAX;
-            int minj = 0;
-            for (int j = 0; j < l_rozmiar; j++) {
-                if (lista2[j][0] == wierzob && q[lista2[j][1]] != 1)
+        for (int i = 0; i < wierz; i++) {
+            for (int j = 0; j < rozmiar; j++) {
+                if (lista2[j][0] == i && q[lista2[j][0]] == 1)
                     if (tab[lista2[j][1]][0] > tab[lista2[j][0]][0] + lista2[j][2]) {
                         tab[lista2[j][1]][0] = tab[lista2[j][0]][0] + lista2[j][2];
                         tab[lista2[j][1]][1] = lista2[j][0];
+                        q[lista2[j][1]] = 1;
                         k = 1;
                     }
-                if (q[lista2[j][1]] != 1 && min > tab[lista2[j][1]][0]) {
-                    min = tab[lista2[j][1]][0];
-                    minj = lista2[j][1];
-                }
             }
-            if (min == -1){
-                break;
-            }
-            q[minj] = 1;
-            wierzob = minj;
         }
         int a;
         for (int i = 0; i < wierz && k != 0; i++) {
@@ -419,7 +375,7 @@ void Bellmanaforda::bell_m(int ** macierz, int wierzcholek_poczatkowy, int wierz
         for (int i = 0; i < wierz; i++){
             q[i] = 0;
         }
-        q[wierzcholek_poczatkowy] = 1;
+        q[1] = 1;
     }
 
     int a = 0;
